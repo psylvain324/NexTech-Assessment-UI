@@ -1,0 +1,22 @@
+
+<div class="topHeader">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+      Sidenav content
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <span>
+        <img mat-button
+        class="logo"
+        src="../../../assets/nextech-logo.svg"
+        alt="TV Logo" />
+      <div class="menu-item">
+        <button mat-button [matMenuTriggerFor]="aboveMenu">Story Feed</button>
+        <mat-menu #aboveMenu="matMenu" yPosition="above">
+          <button mat-menu-item routerLink="\inventory" routerLinkActive="active">View</button>
+        </mat-menu>
+      </div>
+      </span>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

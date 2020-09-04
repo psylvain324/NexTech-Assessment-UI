@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'localhost:8080/',
+  hackerNoonApi: 'https://hacker-news.firebaseio.com/v0/'
 };
 
 /*
