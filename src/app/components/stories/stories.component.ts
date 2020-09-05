@@ -39,19 +39,13 @@ export class StoriesComponent implements OnInit {
   getNewestStoryIds() {
     this.service.getNewestStoryIds().subscribe((data: any) => {
       this.storyIds = data;
-      this.storyIds.forEach((item) => {
-        this.storyIds = item.split(',');
-      });
     });
   }
 
   getNewestStories(storyIds: string[]) {
-    console.log('Ids: ' + storyIds);
     storyIds.forEach((id) => {
       this.service.getStoryById(id).subscribe((data: any) => {
-        const story = data;
-        this.stories.push(story);
-        console.log(data);
+        this.stories = data;
       });
     });
   }
