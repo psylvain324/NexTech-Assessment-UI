@@ -1,0 +1,24 @@
+.story-card {
+  max-width: 400px;
+  float:left;
+  margin-left:5%;
+  margin-top: 2.5%;
+}
+
+mat-card img{
+  height: 100px !important;
+}
+
+.avatar-image {
+  background-image: url('../../../assets//profile-pic.png');
+  background-size: cover;
+}
+
+.bootstrap-paginator {
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

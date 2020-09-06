@@ -1,0 +1,30 @@
+<div style ="margin-top: 5.5%; z-index: -2; margin-left: 1.5%;">
+  <h3 style="margin-left:1%;">
+      Hacker Noon Story News Feed
+  </h3>
+
+    <div class="card text-center m-3">
+    <div class="card-body">
+      <mat-grid-list cols="5" rowHeight="5:1">
+        <div *ngFor="let item of pageOfItems">
+          <mat-card class="story-card">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-image"></div>
+              <mat-card-title>{{item.name}}</mat-card-title>
+              <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go.">
+            <mat-card-content>
+              Description
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-grid-list>
+    </div>
+    <div class ="bootstrap-paginator">
+      <div class="card-footer pb-0 pt-3">
+        <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+    </div>
+    </div>
+  </div>
+</div>

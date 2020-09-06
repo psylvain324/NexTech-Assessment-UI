@@ -3,7 +3,7 @@ import { Story } from '../../interfaces/story.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { StoriesService } from '../../services/stories.service';
+import { HackernoonService } from '../../services/hacker-noon/hacker-noon.service';
 
 @Component({
   selector: 'app-stories',
@@ -17,32 +17,44 @@ export class StoriesComponent implements OnInit {
 
   displayedColumns: string[] = [
     'by',
-    'name'
+    'title',
+    'url'
   ];
 
   @ViewChild(MatSort, {static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true}) paginator: MatPaginator;
 
-  constructor(private service: StoriesService) { }
+  constructor(private service: HackernoonService) { }
 
-  ngOnInit() {
-    this.getNewestStoryIds();
-    this.getNewestStories(this.storyIds);
+  ngOnInit(): void {
+    this.getTestStories();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 
-  getNewestStoryIds() {
+  getTestStories(): void {
+    this.service.getTestStories().subscribe((data: any) => {
+      this.stories = data;
+      this.dataSource = new MatTableDataSource<Story>(
+        this.stories
+      );
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+  }
+
+  getNewestStoryIds(): void {
     this.service.getNewestStoryIds().subscribe((data: any) => {
       this.storyIds = data;
     });
   }
 
-  getNewestStories(storyIds: string[]) {
+  getNewestStories(storyIds: string[]): void {
     storyIds.forEach((id) => {
       this.service.getStoryById(id).subscribe((data: any) => {
         this.stories = data;

@@ -1,13 +1,13 @@
 
 .mat-header-row {
-  background-color: #4db652;
-  background: repeating-linear-gradient(#4db652, #8bc34a);
-  -moz-box-shadow: 3px 2px 5px #8bc34a;
-  -webkit-box-shadow: inset 3px 2px 5px #8bc34a;
-  box-shadow: inset 2px 2px 2px 1px #8bc34a;
-  -moz-box-shadow: 6px 2px 5px #8bc34a;
-  -webkit-box-shadow: inset 2px 2px 5px #8bc34a;
-  box-shadow: inset 4px 2px 2px -1px #8bc34a;
+  background-color: #4db693;
+  background: repeating-linear-gradient(#4db693, #4abbc3);
+  -moz-box-shadow: 3px 2px 5px #4abbc3;
+  -webkit-box-shadow: inset 3px 2px 5px #4abbc3;
+  box-shadow: inset 2px 2px 2px 1px #4abbc3;
+  -moz-box-shadow: 6px 2px 5px #4abbc3;
+  -webkit-box-shadow: inset 2px 2px 5px #4abbc3;
+  box-shadow: inset 4px 2px 2px -1px #4abbc3;
 }
 
 .input {
@@ -16,10 +16,16 @@
 
 .mat-row:nth-child(even) {
   background-color: #e0f2f1;
+  color: black !important;
 }
 
 .mat-row:nth-child(odd) {
   background-color: white;
+  color: black !important;
+}
+
+.mat-cell {
+  color: black !important;
 }
 
 th.mat-sort-header-sorted{
@@ -49,6 +55,10 @@ th.mat-sort-header-sorted{
   overflow: auto;
   vertical-align: middle;
   font-size: 14px !important;
+}
+
+.mat-header-cell {
+  color: white !important;
 }
 
 .mat-row,
