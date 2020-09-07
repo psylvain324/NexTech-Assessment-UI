@@ -78,6 +78,8 @@ export class StoriesComponent implements OnInit {
       fieldName: 'title'
     });
 
+    console.log(this.filteredList);
+
     this.filteredList = this.service.transformMultipleFilters(
       this.filteredList,
       this.filterOptionsList

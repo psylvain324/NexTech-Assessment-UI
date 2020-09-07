@@ -91,7 +91,7 @@ export class StoryService {
     );
   }
 
-  transformMultipleFilters(items: any[], filterOptionList: FilterOptions[]): [] {
+  transformMultipleFilters(items: any[], filterOptionList: FilterOptions[]): any[] {
     let filteredArray = items;
     if (!filteredArray) {
       return [];
@@ -109,6 +109,8 @@ export class StoryService {
         });
       }
     }
+
+    return filteredArray;
   }
 
 }
