@@ -82,3 +82,18 @@ th.mat-sort-header-sorted{
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: lightgreen !important;
 }
+
+.mat-column-by{
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.mat-column-title{
+  max-width: 600px;
+  min-width: 600px;
+}
+
+.mat-column-url{
+  max-width: 600px;
+  min-width: 600px;
+}
