@@ -3,7 +3,7 @@ import { Story } from '../../interfaces/story.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { HackernoonService } from '../../services/hacker-noon/hacker-noon.service';
+import { StoryService } from '../../services/story-service/story.service';
 
 @Component({
   selector: 'app-stories',
@@ -25,7 +25,7 @@ export class StoriesComponent implements OnInit {
   @ViewChild(MatSort, {static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true}) paginator: MatPaginator;
 
-  constructor(private service: HackernoonService) { }
+  constructor(private service: StoryService) { }
 
   ngOnInit(): void {
     this.getTestStories();
@@ -38,7 +38,7 @@ export class StoriesComponent implements OnInit {
   }
 
   getTestStories(): void {
-    this.service.getTestStories().subscribe((data: any) => {
+    this.service.getStories().subscribe((data: any) => {
       this.stories = data;
       this.dataSource = new MatTableDataSource<Story>(
         this.stories
@@ -50,7 +50,7 @@ export class StoriesComponent implements OnInit {
   }
 
   getNewestStoryIds(): void {
-    this.service.getNewestStoryIds().subscribe((data: string[]) => {
+    this.service.getStoryIds().subscribe((data: string[]) => {
       this.storyIds = data;
     });
   }

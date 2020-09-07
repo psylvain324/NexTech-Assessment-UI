@@ -30,7 +30,7 @@ export class StoryCardsComponent implements OnInit {
   }
 
   getNewestStoryIds(): void {
-    this.service.getStoryIdsAsync().subscribe((data: string[]) => {
+    this.service.getStoryIds().subscribe((data: string[]) => {
       this.storyIds = data;
     });
   }

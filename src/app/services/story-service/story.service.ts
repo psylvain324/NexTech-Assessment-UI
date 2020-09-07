@@ -9,6 +9,7 @@ import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class StoryService {
+  readonly batchSize: number = 1;
   baseApi = environment.apiUrl;
   public storiesCache = new Map();
   public idsCache = new Map();
@@ -16,7 +17,7 @@ export class StoryService {
 
   constructor(private http: HttpClient) { }
 
-  getStoryIdsAsync(): Observable<any[]> {
+  getStoryIds(): Observable<any[]> {
     const apiUrl = this.baseApi + 'StoryIds';
     const idsFromCache = this.idsCache.get(apiUrl);
     if (idsFromCache) {
@@ -26,6 +27,25 @@ export class StoryService {
     return this.http.get(apiUrl).pipe(
       map((data: any[]) => {
         this.idsCache.set(apiUrl, data);
+        return data;
+      }),
+      catchError(() => {
+        return throwError('There was a problem with the request');
+      })
+    );
+  }
+
+  getStories(): Observable<any>  {
+    const apiUrl = this.baseApi + 'NewStoriesByBatch';
+    const storiesFromCache = this.storiesCache.get(apiUrl);
+    if (storiesFromCache) {
+      console.log('Stories retrieved from Cache!');
+      return of(storiesFromCache);
+    }
+    return this.http.get(apiUrl).pipe(
+      map((data: Story[]) => {
+        this.storiesCache.set(apiUrl, data);
+        console.log('Data: ' + this.storiesCache);
         return data;
       }),
       catchError(() => {
