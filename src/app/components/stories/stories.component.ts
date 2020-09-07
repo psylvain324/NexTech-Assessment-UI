@@ -8,7 +8,8 @@ import { HackernoonService } from '../../services/hacker-noon/hacker-noon.servic
 @Component({
   selector: 'app-stories',
   templateUrl: './stories.component.html',
-  styleUrls: ['./stories.component.css']
+  styleUrls: ['./stories.component.css'],
+  animations: []
 })
 export class StoriesComponent implements OnInit {
   dataSource = new MatTableDataSource<Story>();
@@ -49,7 +50,7 @@ export class StoriesComponent implements OnInit {
   }
 
   getNewestStoryIds(): void {
-    this.service.getNewestStoryIds().subscribe((data: any) => {
+    this.service.getNewestStoryIds().subscribe((data: string[]) => {
       this.storyIds = data;
     });
   }

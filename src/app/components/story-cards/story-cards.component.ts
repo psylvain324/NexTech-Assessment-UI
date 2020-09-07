@@ -8,20 +8,39 @@ import { StoryService } from '../../services/story-service/story.service';
   styleUrls: ['./story-cards.component.css']
 })
 export class StoryCardsComponent implements OnInit {
-  items = [];
+  storyIds: string[] = [];
+  stories: any[] = [];
   pageOfItems: Array<any>;
 
-  constructor(private storyService: StoryService ) {
+  constructor(private service: StoryService ) {
 
    }
 
   ngOnInit(): void {
-    this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+    this.getNewestStoryIds();
+    this.pageOfItems = this.storyIds;
+    this.storyIds.forEach(id => {
+      this.stories.push(this.service.getStoryById(id));
+    });
   }
 
-  onChangePage(pageOfItems: Array<any>): void {
+  onChangePage(pageOfstoryIds: Array<any>): void {
     // update current page of items
-    this.pageOfItems = pageOfItems;
+    this.pageOfItems = pageOfstoryIds;
+  }
+
+  getNewestStoryIds(): void {
+    this.service.getStoryIdsAsync().subscribe((data: string[]) => {
+      this.storyIds = data;
+    });
+  }
+
+  getNewestStories(storyIds: string[]): void {
+    // storyIds.forEach((id) => {
+    //   this.service.getStoryById(id).subscribe((data: any) => {
+    //     this.stories = data;
+    //   });
+    // });
   }
 
 }

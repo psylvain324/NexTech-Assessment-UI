@@ -10,8 +10,8 @@
           <mat-card class="story-card">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image"></div>
-              <mat-card-title>{{item.name}}</mat-card-title>
-              <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+              <mat-card-title>{{item}}</mat-card-title>
+              <mat-card-subtitle>{{item}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go.">
             <mat-card-content>
@@ -23,7 +23,7 @@
     </div>
     <div class ="bootstrap-paginator">
       <div class="card-footer pb-0 pt-3">
-        <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+        <jw-pagination [items]="storyIds" (changePage)="onChangePage($event)"></jw-pagination>
     </div>
     </div>
   </div>

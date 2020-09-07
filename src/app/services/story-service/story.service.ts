@@ -11,26 +11,51 @@ import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
 export class StoryService {
   baseApi = environment.apiUrl;
   public storiesCache = new Map();
+  public idsCache = new Map();
   private storyIds = new BehaviorSubject<string[]>([]);
 
   constructor(private http: HttpClient) { }
 
-  async getStoriesAsync(): Promise<Story[]> {
-    try {
-      const response = await this.http
-        .get(this.baseApi + 'StoryIds')
-        .toPromise();
-      return response as Story[];
-    } catch (error) {
-      await this.handleError(error);
+  getStoryIdsAsync(): Observable<any[]> {
+    const apiUrl = this.baseApi + 'StoryIds';
+    const idsFromCache = this.idsCache.get(apiUrl);
+    if (idsFromCache) {
+      console.log('Stories retrieved from Cache!');
+      return of(idsFromCache);
     }
+    return this.http.get(apiUrl).pipe(
+      map((data: any[]) => {
+        this.idsCache.set(apiUrl, data);
+        return data;
+      }),
+      catchError(() => {
+        return throwError('There was a problem with the request');
+      })
+    );
+  }
+
+  getStoryById(id: string): Observable<any>  {
+    const apiUrl = this.baseApi + 'item/' + id + '.json?print=pretty';
+    const storiesFromCache = this.storiesCache.get(apiUrl);
+    if (storiesFromCache) {
+      console.log('Stories retrieved from Cache!');
+      return of(storiesFromCache);
+    }
+    return this.http.get(apiUrl).pipe(
+      map((data: Story[]) => {
+        return data;
+      }),
+      catchError(() => {
+        return throwError('There was a problem with the request');
+      })
+    );
   }
 
   getStoriesPaginated(pageNumber: number, pageSize: number): Observable<any>  {
     const apiUrl = this.baseApi + pageNumber + '/' + pageSize;
     const storiesFromCache = this.storiesCache.get(apiUrl);
     if (storiesFromCache) {
-      console.log('Stories retried from Cache!');
+      console.log('Stories retrieved from Cache!');
       return of(storiesFromCache);
     }
     return this.http.get(apiUrl).pipe(
@@ -45,7 +70,7 @@ export class StoryService {
     );
   }
 
-  handleError(error) {
+  handleError(error): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // client-side error

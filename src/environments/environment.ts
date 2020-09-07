@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5001/',
+  apiUrl: 'https://localhost:5001/',
   testApiUrl: 'http://localhost:3000/',
   hackerNoonApi: 'https://hacker-news.firebaseio.com/v0/'
 };

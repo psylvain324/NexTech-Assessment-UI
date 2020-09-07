@@ -13,11 +13,9 @@ describe('HackernoonService', () => {
       imports: [ HttpClientTestingModule ]
     });
     service = TestBed.inject(HackernoonService);
+    httpMock = TestBed.inject(HttpTestingController);
+    httpClient = TestBed.inject(HttpClient);
   });
-
-  service = TestBed.inject(HackernoonService);
-  httpMock = TestBed.inject(HttpTestingController);
-  httpClient = TestBed.inject(HttpClient);
 
   it('should be created', inject(
     [HttpTestingController, HackernoonService],
