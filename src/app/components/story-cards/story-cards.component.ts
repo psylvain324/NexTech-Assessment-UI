@@ -22,6 +22,7 @@ export class StoryCardsComponent implements OnInit {
     this.storyIds.forEach(id => {
       this.stories.push(this.service.getStoryById(id));
     });
+    console.log(this.stories);
   }
 
   onChangePage(pageOfstoryIds: Array<any>): void {
@@ -36,11 +37,11 @@ export class StoryCardsComponent implements OnInit {
   }
 
   getNewestStories(storyIds: string[]): void {
-    // storyIds.forEach((id) => {
-    //   this.service.getStoryById(id).subscribe((data: any) => {
-    //     this.stories = data;
-    //   });
-    // });
+    storyIds.forEach((id) => {
+      this.service.getStoryById(id).subscribe((data: any) => {
+        this.stories = data;
+      });
+    });
   }
 
 }

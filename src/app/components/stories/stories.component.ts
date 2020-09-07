@@ -22,6 +22,7 @@ export class StoriesComponent implements OnInit {
   storyIds: string[] = [];
   stories: Story[] = [];
   storiesRef: Story[] = [];
+  isLoading = true;
 
   displayedColumns: string[] = [
     'by',
@@ -54,7 +55,7 @@ export class StoriesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
+    this.isLoading = false;
   }
 
   getNewestStoryIds(): void {
@@ -78,8 +79,6 @@ export class StoriesComponent implements OnInit {
       fieldName: 'title'
     });
 
-    console.log(this.filteredList);
-
     this.filteredList = this.service.transformMultipleFilters(
       this.filteredList,
       this.filterOptionsList
@@ -91,6 +90,7 @@ export class StoriesComponent implements OnInit {
     );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.isLoading = false;
   }
 
   clear(): void {
@@ -102,6 +102,7 @@ export class StoriesComponent implements OnInit {
     );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.isLoading = false;
   }
 
 }
