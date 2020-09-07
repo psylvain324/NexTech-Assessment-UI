@@ -1,3 +1,6 @@
+### Note on Proxy Usage used to bypass CORs policy issue.
+Use Command: ng serve --proxy-config proxy.conf.json
+
 # NexTechUI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
