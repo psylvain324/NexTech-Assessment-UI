@@ -11,6 +11,7 @@ import { MaterialModule } from './shared/material.module';
 import { StoriesComponent } from './components/stories/stories.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { StoryCardsComponent } from './components/story-cards/story-cards.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { StoryCardsComponent } from './components/story-cards/story-cards.compon
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    JwPaginationModule
+    JwPaginationModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

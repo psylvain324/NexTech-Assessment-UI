@@ -4,6 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Story } from '../../interfaces/story.model';
 import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
+import { FilterOptions } from '../../interfaces/filter-option.model';
 
 @Injectable({
   providedIn: 'root'
@@ -90,17 +91,24 @@ export class StoryService {
     );
   }
 
-  handleError(error): Observable<never> {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  transformMultipleFilters(items: any[], filterOptionList: FilterOptions[]): [] {
+    let filteredArray = items;
+    if (!filteredArray) {
+      return [];
     }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
+    for (const option of filterOptionList) {
+      if (option.searchText != null && option.fieldName != null) {
+        filteredArray = filteredArray.filter((item) => {
+          if (item[option.fieldName] &&
+            item[option.fieldName]
+              .toLowerCase()
+              .includes(option.searchText.toLowerCase())
+          ) {
+            return item;
+          }
+        });
+      }
+    }
   }
 
 }

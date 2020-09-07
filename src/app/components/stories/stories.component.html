@@ -3,9 +3,23 @@
       Hacker Noon Story News Feed
   </h3>
 
-<mat-form-field>
-  <input matInput class="input-field" (keyup)="applyFilter($event.target.value)" placeholder="Search Stories">
+<mat-form-field style="width: 350px;">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Stories" [formControl]="wildCardSearch" >
 </mat-form-field>
+
+<mat-form-field style="padding-left:2% !important; width: 350px;" >
+  <input matInput placeholder="Search Stories" [formControl]="titleSearch">
+</mat-form-field>
+
+<button style="margin-left:2% !important; width: 100px;" mat-raised-button color="primary" (click)="search()">
+  Search
+<mat-icon>search</mat-icon>
+</button>
+
+<button style="margin-left:2% !important; width: 100px;" mat-raised-button color="primary" (click)="clear()">
+  Clear
+<mat-icon>clear</mat-icon>
+</button>
 
 <div style="margin-top: 1%;">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
@@ -31,6 +45,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+<mat-paginator class="paginator" [pageSizeOptions]="[10, 20, 40]"></mat-paginator>
 
 </div>

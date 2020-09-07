@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Story } from '../../interfaces/story.model';
+import { FilterOptions } from '../../interfaces/filter-option.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { StoryService } from '../../services/story-service/story.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-stories',
@@ -12,9 +14,14 @@ import { StoryService } from '../../services/story-service/story.service';
   animations: []
 })
 export class StoriesComponent implements OnInit {
+  filteredList = [];
+  filterOptionsList: FilterOptions[] = [];
   dataSource = new MatTableDataSource<Story>();
+  titleSearch = new FormControl();
+  wildCardSearch = new FormControl();
   storyIds: string[] = [];
   stories: Story[] = [];
+  storiesRef: Story[] = [];
 
   displayedColumns: string[] = [
     'by',
@@ -28,7 +35,7 @@ export class StoriesComponent implements OnInit {
   constructor(private service: StoryService) { }
 
   ngOnInit(): void {
-    this.getTestStories();
+    this.getStories();
   }
 
   applyFilter(filterValue: string): void {
@@ -37,9 +44,10 @@ export class StoriesComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  getTestStories(): void {
+  getStories(): void {
     this.service.getStories().subscribe((data: any) => {
       this.stories = data;
+      this.storiesRef = data;
       this.dataSource = new MatTableDataSource<Story>(
         this.stories
       );
@@ -61,6 +69,37 @@ export class StoriesComponent implements OnInit {
         this.stories = data;
       });
     });
+  }
+
+  search(): void {
+    this.filteredList = this.stories;
+    this.filterOptionsList.push({
+      searchText: this.titleSearch.value,
+      fieldName: 'title'
+    });
+
+    this.filteredList = this.service.transformMultipleFilters(
+      this.filteredList,
+      this.filterOptionsList
+    );
+
+    this.stories = this.filteredList;
+    this.dataSource = new MatTableDataSource<Story>(
+      this.stories
+    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  clear(): void {
+    this.titleSearch.reset();
+    this.wildCardSearch.reset();
+    this.stories = this.storiesRef;
+    this.dataSource = new MatTableDataSource<Story>(
+      this.stories
+    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 }
