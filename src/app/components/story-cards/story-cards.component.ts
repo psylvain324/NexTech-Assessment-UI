@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Story } from '../../interfaces/story.model';
 import { StoryService } from '../../services/story-service/story.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-story-cards',
@@ -9,7 +10,7 @@ import { StoryService } from '../../services/story-service/story.service';
 })
 export class StoryCardsComponent implements OnInit {
   storyIds: string[] = [];
-  stories: any[] = [];
+  stories: Observable<Story[]>;
   pageOfItems: Array<any>;
 
   constructor(private service: StoryService ) {
@@ -18,28 +19,30 @@ export class StoryCardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNewestStoryIds();
+    this.getNewestStories();
     this.pageOfItems = this.storyIds;
-    this.storyIds.forEach(id => {
-      this.stories.push(this.service.getStoryById(id));
-    });
-    console.log(this.stories);
+    console.log('Items: ' + this.stories);
   }
 
-  onChangePage(pageOfstoryIds: Array<any>): void {
+  onChangePage(pageOfStories: Array<any>): void {
     // update current page of items
-    this.pageOfItems = pageOfstoryIds;
+    this.pageOfItems = pageOfStories;
   }
 
-  getNewestStoryIds(): void {
+  getNewestStoryIds(): any {
     this.service.getStoryIds().subscribe((data: string[]) => {
       this.storyIds = data;
+      return data;
     });
+    return this.storyIds;
   }
 
-  getNewestStories(storyIds: string[]): void {
-    storyIds.forEach((id) => {
-      this.service.getStoryById(id).subscribe((data: any) => {
-        this.stories = data;
+  getNewestStories(): void {
+    this.service.getStoryIdValues().subscribe((data: string[]) => {
+      data.map(id => {
+        const story = this.service.getStoryById(id);
+        console.log('Story: ' + story);
+        // TODO - Finish this.
       });
     });
   }
