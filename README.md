@@ -1,5 +1,9 @@
 ### Note on Proxy Usage used to bypass CORs policy issue.
 Use Command: ng serve --proxy-config proxy.conf.json
+### Issue came back, currently using Plugin to run locally while I figure out why it's not Bypassing:
+Chrome: https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc?hl=en-US
+FireFox: https://addons.mozilla.org/en-US/firefox/addon/moesif-origin-cors-changer1/
+### Will be working on a fix today as well as completing more test cases in both front and back end.
 
 # NexTechUI
 
