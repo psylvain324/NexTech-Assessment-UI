@@ -16,7 +16,8 @@ export class StoryService {
   public idsCache = new Map();
   private storyIds = new BehaviorSubject<string[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getStoryIds(): Observable<any[]> {
     const apiUrl = this.baseApi + 'StoryIds';
@@ -28,6 +29,7 @@ export class StoryService {
     return this.http.get(apiUrl).pipe(
       map((data: any[]) => {
         this.idsCache.set(apiUrl, data);
+        this.storyIds.next(data);
         return data;
       }),
       catchError(() => {
@@ -36,8 +38,12 @@ export class StoryService {
     );
   }
 
+  getStoryIdValues(): Observable<string[]> {
+    return this.storyIds.asObservable();
+  }
+
   getStories(): Observable<any>  {
-    const apiUrl = this.baseApi + 'NewStoriesByBatch';
+    const apiUrl = this.baseApi + 'NewStoriesParallel';
     const storiesFromCache = this.storiesCache.get(apiUrl);
     if (storiesFromCache) {
       console.log('Stories retrieved from Cache!');
@@ -76,7 +82,6 @@ export class StoryService {
     }
     return this.http.get(apiUrl).pipe(
       map((data: string[]) => {
-        this.storyIds.next(data);
         this.storiesCache.set(apiUrl, data);
         return data;
       }),

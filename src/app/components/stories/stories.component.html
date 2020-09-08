@@ -41,6 +41,12 @@
       <a href="{{element.url}}" target="_blank" mat-cell *matCellDef="let element"> {{element.url}} </a>
     </ng-container>
 
+    <!-- Date Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Posted </th>
+      <td target="_blank" mat-cell *matCellDef="let element"> {{element.time * 1000 | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
@@ -48,7 +54,7 @@
 
 <mat-card
   *ngIf="isLoading"
-  style="display: flex; justify-content: center; align-items: center;"
+  style="display: flex; justify-content: center; align-items: center; background-color: white !important;"
 >
   <mat-progress-spinner color="primary" mode="indeterminate">
   </mat-progress-spinner>

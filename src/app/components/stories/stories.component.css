@@ -84,16 +84,21 @@ th.mat-sort-header-sorted{
 }
 
 .mat-column-by{
-  max-width: 300px;
-  min-width: 300px;
+  max-width: 250px !important;
+  min-width: 250px !important;
 }
 
 .mat-column-title{
-  max-width: 600px;
-  min-width: 600px;
+  max-width: 500px !important;
+  min-width: 500px !important;
 }
 
 .mat-column-url{
-  max-width: 600px;
-  min-width: 600px;
+  max-width: 500px !important;
+  min-width: 500px !important;
+}
+
+.mat-column-time{
+  max-width: 250px !important;
+  min-width: 250px !important;
 }

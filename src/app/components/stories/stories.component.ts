@@ -27,7 +27,8 @@ export class StoriesComponent implements OnInit {
   displayedColumns: string[] = [
     'by',
     'title',
-    'url'
+    'url',
+    'time'
   ];
 
   @ViewChild(MatSort, {static: true }) sort: MatSort;

@@ -10,12 +10,12 @@
           <mat-card class="story-card">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image"></div>
-              <mat-card-title>{{item}}</mat-card-title>
-              <mat-card-subtitle>{{item}}</mat-card-subtitle>
+              <mat-card-title>{{item.title}}</mat-card-title>
+              <mat-card-subtitle>{{item.by}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go.">
             <mat-card-content>
-              Description
+              {{item.url}}
             </mat-card-content>
           </mat-card>
         </div>
