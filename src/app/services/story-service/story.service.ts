@@ -56,14 +56,9 @@ export class StoryService {
   }
 
   getStoryById(id: string): Observable<any>  {
-    const apiUrl = this.baseApi + 'item/' + id + '.json?print=pretty';
-    const storiesFromCache = this.storiesCache.get(apiUrl);
-    if (storiesFromCache) {
-      console.log('Stories retrieved from Cache!');
-      return of(storiesFromCache);
-    }
+    const apiUrl = this.baseApi + 'story/' + id;
     return this.http.get(apiUrl).pipe(
-      map((data: Story[]) => {
+      map((data: Story) => {
         return data;
       }),
       catchError(() => {

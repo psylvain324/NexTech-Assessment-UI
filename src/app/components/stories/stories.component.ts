@@ -48,14 +48,14 @@ export class StoriesComponent implements OnInit {
   getStories(): void {
     this.service.getStories().subscribe((data: any) => {
       this.stories = data;
-      this.storiesRef = data;
+      this.storiesRef = this.stories;
       this.dataSource = new MatTableDataSource<Story>(
         this.stories
       );
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.isLoading = false;
     });
-    this.isLoading = false;
   }
 
   getNewestStoryIds(): void {
