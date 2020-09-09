@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Story } from '../../interfaces/story.model';
 import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
 import { FilterOptions } from '../../interfaces/filter-option.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +51,6 @@ export class StoryService {
     return this.http.get(apiUrl).pipe(
       map((data: Story[]) => {
         this.storiesCache.set(apiUrl, data);
-        console.log('Data: ' + this.storiesCache);
         return data;
       }),
       catchError(() => {
@@ -61,10 +59,13 @@ export class StoryService {
     );
   }
 
-  getStoryById(id: string): Observable<any>  {
+  getStoryById(id: string): Observable<Story>  {
     const apiUrl = this.baseApi + 'story/' + id;
+
+    console.log('Is Hit: ' + apiUrl);
     return this.http.get(apiUrl).pipe(
       map((data: Story) => {
+        console.log('Get By Id: ' + data);
         return data;
       }),
       catchError(() => {
@@ -73,7 +74,7 @@ export class StoryService {
     );
   }
 
-  getStoriesPaginated(pageNumber: number, pageSize: number): Observable<any>  {
+  getStoriesBySizeAndPosition(pageNumber: number, pageSize: number): Observable<any>  {
     const apiUrl = this.baseApi + pageNumber + '/' + pageSize;
     const storiesFromCache = this.storiesCache.get(apiUrl);
     if (storiesFromCache) {

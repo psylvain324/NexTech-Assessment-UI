@@ -7,15 +7,15 @@
     <div class="card-body">
       <mat-grid-list cols="5" rowHeight="5:1">
         <div *ngFor="let item of pageOfItems">
-          <mat-card class="story-card">
+          <mat-card (click)="openDialog(item)" class="story-card">
             <mat-card-header>
               <div mat-card-avatar class="avatar-image"></div>
-              <mat-card-title>{{item.title}}</mat-card-title>
-              <mat-card-subtitle>{{item.by}}</mat-card-subtitle>
+              <mat-card-title>{{item}}</mat-card-title>
+              <mat-card-subtitle>{{item}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go.">
             <mat-card-content>
-              {{item.url}}
+              {{item}}
             </mat-card-content>
           </mat-card>
         </div>

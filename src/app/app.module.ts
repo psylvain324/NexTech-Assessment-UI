@@ -12,13 +12,15 @@ import { StoriesComponent } from './components/stories/stories.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { StoryCardsComponent } from './components/story-cards/story-cards.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoryModalComponent } from './components/story-modal/story-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StoriesComponent,
     NavMenuComponent,
-    StoryCardsComponent
+    StoryCardsComponent,
+    StoryModalComponent
   ],
   imports: [
     BrowserModule,
