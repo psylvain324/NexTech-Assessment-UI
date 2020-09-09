@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Story } from '../../interfaces/story.model';
 import { StoryService } from '../../services/story-service/story.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-story-cards',
@@ -9,8 +9,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./story-cards.component.css']
 })
 export class StoryCardsComponent implements OnInit {
+  private subjectIdList = new ReplaySubject<string[]>();
+  private subjectStoryList = new BehaviorSubject<Story[]>([]);
   storyIds: string[] = [];
-  stories: Observable<Story[]>;
+  stories: Story[] = [];
   pageOfItems: Array<any>;
 
   constructor(private service: StoryService ) {
@@ -19,9 +21,9 @@ export class StoryCardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNewestStoryIds();
+    this.getNewestStoryIdsAsStrings();
     this.getNewestStories();
-    this.pageOfItems = this.storyIds;
-    console.log('Items: ' + this.stories);
+    this.pageOfItems = this.stories;
   }
 
   onChangePage(pageOfStories: Array<any>): void {
@@ -37,14 +39,53 @@ export class StoryCardsComponent implements OnInit {
     return this.storyIds;
   }
 
-  getNewestStories(): void {
+  getNewestStoryIdsAsStrings(): void {
     this.service.getStoryIdValues().subscribe((data: string[]) => {
-      data.map(id => {
-        const story = this.service.getStoryById(id);
-        console.log('Story: ' + story);
-        // TODO - Finish this.
-      });
+    // this.service.getStoryIds().subscribe((data: string[]) => {
+      for (let i = 0; data.length > i; i++) {
+        const id = data[i];
+        // console.log('Id: ' + id);
+        const storyIds = [];
+        storyIds.push(id);
+        this.subjectIdList.next(storyIds);
+      }
     });
+    // console.log('Ids as Strings: ' + this.subjectIdList);
+    // this.subjectIdList.subscribe({
+    //   next: (id) => console.log('Id: ' + id)
+    // });
   }
+
+  getNewestStories(): void {
+    this.subjectIdList.subscribe({
+      next: (id) => {
+        const story = this.service.getStoryById(id.toString());
+        const stories = [];
+        stories.push(story);
+        this.subjectStoryList.next(stories);
+      }
+    });
+
+    const allStories: Story[] = [];
+    this.subjectStoryList.subscribe({
+      next: (story) => {
+        // console.log('Story: ' + story);
+        story.forEach(s => {
+          allStories.push(s);
+        });
+        console.log('Stories Length: ' + allStories.length);
+      }
+    });
+
+    this.manualDelay(2500).then(() => {
+      this.stories = allStories;
+      console.log('All Stories: ' + this.stories);
+    });
+
+  }
+
+  async manualDelay(ms: number): Promise<void> {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('Thread asleep!'));
+}
 
 }
