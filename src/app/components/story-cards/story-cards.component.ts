@@ -62,7 +62,7 @@ export class StoryCardsComponent implements OnInit {
         console.log('StoryId being passed: ' + storyId);
       }
     });
-    this.manualDelay(500).then(() => {
+    this.manualDelay(1000).then(() => {
       console.log('ID Length: ' + idList.length);
 
       idList.forEach((id) => {
@@ -76,7 +76,7 @@ export class StoryCardsComponent implements OnInit {
       });
     });
 
-    this.manualDelay(1000).then(() => {
+    this.manualDelay(1500).then(() => {
       console.log('Story List Length: ' + storyList.length);
       this.stories = storyList;
       this.isLoading = false;
