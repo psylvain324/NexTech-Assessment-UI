@@ -61,11 +61,10 @@ export class StoryService {
 
   getStoryById(id: string): Observable<Story>  {
     const apiUrl = this.baseApi + 'story/' + id;
-
-    console.log('Is Hit: ' + apiUrl);
+    console.log('Url Hit: ' + apiUrl);
     return this.http.get(apiUrl).pipe(
       map((data: Story) => {
-        console.log('Get By Id: ' + data);
+        console.log('GetStoryById: data: ' + data);
         return data;
       }),
       catchError(() => {

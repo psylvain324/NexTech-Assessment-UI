@@ -3,19 +3,26 @@
       Hacker Noon Story News Feed
   </h3>
 
-    <div class="card text-center m-3">
+  <mat-card
+    *ngIf="isLoading"
+    style="display: flex; justify-content: center; align-items: center; background-color: transparent !important;"
+  >
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </mat-card>
+  <div class="card text-center m-3">
     <div class="card-body">
       <mat-grid-list cols="5" rowHeight="5:1">
         <div *ngFor="let item of pageOfItems">
-          <mat-card (click)="openDialog(item)" class="story-card">
+          <mat-card class="story-card">
             <mat-card-header>
-              <div mat-card-avatar class="avatar-image"></div>
-              <mat-card-title>{{item}}</mat-card-title>
-              <mat-card-subtitle>{{item}}</mat-card-subtitle>
+              <!-- <div mat-card-avatar class="avatar-image"></div> -->
+              <mat-card-title style="display: flex; align-content: center;" (click)="openDialog(item.id)" >Title: {{item.title}}</mat-card-title>
+              <mat-card-subtitle (click)="openDialog(item.id)" >By: {{item.by}}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go.">
-            <mat-card-content>
-              {{item}}
+            <!-- <img mat-card-image src="../../../assets//hackernoon-logo.jpg" alt="Here's where a photo would go."> -->
+            <mat-card-content class="url-link">
+              <a href="{{item.url}}" target="_blank"> Url: {{item.url}} </a>
             </mat-card-content>
           </mat-card>
         </div>
@@ -23,7 +30,7 @@
     </div>
     <div class ="bootstrap-paginator">
       <div class="card-footer pb-0 pt-3">
-        <jw-pagination [items]="storyIds" (changePage)="onChangePage($event)"></jw-pagination>
+        <jw-pagination [items]="stories" (changePage)="onChangePage($event)"></jw-pagination>
     </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Story } from '../../interfaces/story.model';
 import { StoryService } from '../../services/story-service/story.service';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StoryModalComponent } from '../story-modal/story-modal.component';
 
@@ -15,11 +15,10 @@ export class StoryCardsComponent implements OnInit {
   private subjectStoryList = new ReplaySubject<Story[]>();
   storyIds: string[] = [];
   stories: Story[] = [];
-  pageOfItems: Array<any>;
+  pageOfItems: Story[] = [];
+  isLoading = true;
 
-  constructor(private service: StoryService, private dialog: MatDialog) {
-
-   }
+  constructor(private service: StoryService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getNewestStoryIds();
@@ -53,45 +52,42 @@ export class StoryCardsComponent implements OnInit {
   }
 
   getNewestStories(): void {
+    const storyList: Story[] = [];
+    const idList: string[] = [];
+    let storyId = '';
     this.subjectIdList.subscribe({
       next: (id) => {
-        // console.log('StoryId being passed: ' + id);
-        const story = this.service.getStoryById(id.toString());
-        const stories = [];
-        console.log('Story on Component: ' + story);
-        stories.push(story);
-
-        this.subjectStoryList.next(stories);
+        storyId = id.toString();
+        idList.push(storyId);
+        console.log('StoryId being passed: ' + storyId);
       }
     });
+    this.manualDelay(500).then(() => {
+      console.log('ID Length: ' + idList.length);
 
-    let allStories: Story[] = [];
-    this.subjectStoryList.subscribe({
-      next: (story) => {
-        console.log('Story From Subject: ' + story);
-        allStories = story;
-        this.stories.push(allStories[0]);
-        console.log('By: ' + allStories[0].by);
-      }
+      idList.forEach((id) => {
+        this.service.getStoryById(id).subscribe((data: any) => {
+          const story: Story = data;
+          if (story !== null) {
+            storyList.push(story);
+            this.subjectStoryList.next(storyList);
+          }
+        });
+      });
     });
 
-    this.manualDelay(2500).then(() => {
-      // this.stories = allStories;
-      for (let i = 0; allStories.length > i; i++) {
-        const story = allStories[i].url;
-        console.log('Story ' + story);
-        // allStories.push(story);
-      }
-      console.log('All Stories: ' + this.stories.length);
+    this.manualDelay(1000).then(() => {
+      console.log('Story List Length: ' + storyList.length);
+      this.stories = storyList;
+      this.isLoading = false;
     });
-
   }
 
   async manualDelay(ms: number): Promise<void> {
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('Thread asleep!'));
   }
 
-  openDialog(id: string) {
+  openDialog(id: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = id;
     console.log(dialogConfig.data);

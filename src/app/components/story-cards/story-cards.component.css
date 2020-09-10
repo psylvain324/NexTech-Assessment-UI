@@ -1,8 +1,21 @@
 .story-card {
-  max-width: 400px;
+  max-width: 275px;
+  min-width: 275px;
+  max-height: 250px;
+  min-height: 250px;
   float:left;
-  margin-left:5%;
-  margin-top: 2.5%;
+  margin-left:2%;
+  margin-top: 1%;
+  background-color: #17cc72;
+}
+
+.card-body {
+  background-color: #f1fffe;
+}
+
+.a {
+  display: block !important;
+  font-size: large !important;
 }
 
 mat-card img{
@@ -10,7 +23,8 @@ mat-card img{
 }
 
 .avatar-image {
-  background-image: url('../../../assets//profile-pic.png');
+  /*background-image: url('../../../assets//profile-pic.png');*/
+  background-image: url('../../../assets/hackernoon-logo.jpg');
   background-size: cover;
 }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story } from 'src/app/interfaces/story.model';
+import { StoryService } from '../../services/story-service/story.service';
 
 @Component({
   selector: 'app-story-modal',
@@ -8,14 +9,24 @@ import { Story } from 'src/app/interfaces/story.model';
   styleUrls: ['./story-modal.component.css']
 })
 export class StoryModalComponent implements OnInit {
-  rowData: Story;
+  story: Story;
+  rowData: string;
   public columnDefs;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data) {
+  constructor(@Inject(MAT_DIALOG_DATA) data, private service: StoryService) {
      this.rowData = data;
+     console.log('Row Data: ' + this.rowData);
    }
 
   ngOnInit(): void {
-
+    this.getCurrentStory();
   }
+
+  getCurrentStory(): void {
+    this.service.getStoryById(this.rowData).subscribe((data: any) => {
+      this.story = data;
+      console.log(this.story);
+    });
+  }
+
 }
