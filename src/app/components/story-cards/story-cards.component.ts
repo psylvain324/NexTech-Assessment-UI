@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Story } from '../../interfaces/story.model';
 import { StoryService } from '../../services/story-service/story.service';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StoryModalComponent } from '../story-modal/story-modal.component';
 
@@ -28,7 +28,7 @@ export class StoryCardsComponent implements OnInit {
   }
 
   onChangePage(pageOfStories: Array<any>): void {
-    // update current page of items
+    // Update current page of Stories
     this.pageOfItems = pageOfStories;
   }
 
@@ -76,7 +76,7 @@ export class StoryCardsComponent implements OnInit {
       });
     });
 
-    this.manualDelay(1500).then(() => {
+    this.manualDelay(2500).then(() => {
       console.log('Story List Length: ' + storyList.length);
       this.stories = storyList;
       this.isLoading = false;

@@ -4,6 +4,7 @@ import { StoryService } from './story.service';
 import { MaterialModule } from '../../shared/material.module';
 import { Story } from 'src/app/interfaces/story.model';
 import { FilterOptions } from 'src/app/interfaces/filter-option.model';
+import { Observable } from 'rxjs';
 
 describe('StoryService', () => {
   let service: StoryService;
@@ -19,7 +20,7 @@ describe('StoryService', () => {
       time: '0171990',
       title: 'Tech Assessment',
       type: 'Test',
-      id: 123,
+      id: '123',
       url: 'www.test1.com',
     },
     {
@@ -30,7 +31,7 @@ describe('StoryService', () => {
       time: '0171990',
       title: 'NexTech Assessment',
       type: 'Test',
-      id: 123,
+      id: '123',
       url: 'www.test1.com',
     },
     {
@@ -41,7 +42,7 @@ describe('StoryService', () => {
       time: '0171990',
       title: 'Tech Assessment',
       type: 'Test',
-      id: 123,
+      id: '123',
       url: 'www.test1.com',
     },
   ];

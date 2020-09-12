@@ -9,6 +9,7 @@ import { StoryService } from '../../services/story-service/story.service';
   styleUrls: ['./story-modal.component.css']
 })
 export class StoryModalComponent implements OnInit {
+  title = 'Full Story Details';
   story: Story;
   rowData: string;
   public columnDefs;

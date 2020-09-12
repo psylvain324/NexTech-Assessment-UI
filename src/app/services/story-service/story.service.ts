@@ -18,8 +18,8 @@ export class StoryService {
   constructor(private http: HttpClient) {
   }
 
-  getStoryIds(): Observable<any[]> {
-    const apiUrl = this.baseApi + 'StoryIds';
+  getStoryIds(): Observable<string[]> {
+    const apiUrl = this.baseApi + 'NewStoryIds';
     const idsFromCache = this.idsCache.get(apiUrl);
     if (idsFromCache) {
       console.log('Stories retrieved from Cache!');
@@ -41,8 +41,8 @@ export class StoryService {
     return this.storyIds.asObservable();
   }
 
-  getStories(): Observable<any>  {
-    const apiUrl = this.baseApi + 'NewStoriesParallel';
+  getStories(): Observable<Story[]>  {
+    const apiUrl = this.baseApi + 'NewStories';
     const storiesFromCache = this.storiesCache.get(apiUrl);
     if (storiesFromCache) {
       console.log('Stories retrieved from Cache!');
@@ -61,10 +61,8 @@ export class StoryService {
 
   getStoryById(id: string): Observable<Story>  {
     const apiUrl = this.baseApi + 'story/' + id;
-    console.log('Url Hit: ' + apiUrl);
     return this.http.get(apiUrl).pipe(
       map((data: Story) => {
-        console.log('GetStoryById: data: ' + data);
         return data;
       }),
       catchError(() => {
