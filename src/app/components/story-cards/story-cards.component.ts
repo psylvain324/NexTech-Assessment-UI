@@ -4,6 +4,7 @@ import { StoryService } from '../../services/story-service/story.service';
 import { ReplaySubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StoryModalComponent } from '../story-modal/story-modal.component';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-story-cards',
@@ -18,13 +19,15 @@ export class StoryCardsComponent implements OnInit {
   pageOfItems: Story[] = [];
   isLoading = true;
 
-  constructor(private service: StoryService, private dialog: MatDialog) {}
+  constructor(private service: StoryService, private dialog: MatDialog, private ngZone: NgZone) {}
 
   ngOnInit(): void {
+    this.ngZone.run(() => {
+      this.pageOfItems = this.stories;
+    });
     this.getNewestStoryIds();
     this.getNewestStoryIdsList();
     this.getNewestStories();
-    this.pageOfItems = this.stories;
   }
 
   onChangePage(pageOfStories: Array<any>): void {
@@ -77,7 +80,6 @@ export class StoryCardsComponent implements OnInit {
     });
 
     this.manualDelay(2500).then(() => {
-      console.log('Story List Length: ' + storyList.length);
       this.stories = storyList;
       this.isLoading = false;
     });

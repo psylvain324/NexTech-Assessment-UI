@@ -1,6 +1,6 @@
 <div style ="margin-top: 5.5%; z-index: -2; margin-left: 1.5%;">
   <h3>
-      Hacker Noon Story News Feed
+      {{title}}
   </h3>
 
   <mat-form-field style="width: 350px;">
@@ -16,7 +16,7 @@
   <mat-icon>search</mat-icon>
   </button>
 
-  <button style="margin-left:2% !important; width: 100px;" mat-raised-button color="primary" (click)="clear()">
+  <button id="clear" mat-raised-button color="primary" style="margin-left:2% !important; width: 100px;" (click)="clear()">
     Clear
   <mat-icon>clear</mat-icon>
   </button>

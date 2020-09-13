@@ -42,21 +42,27 @@ describe('StoryModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StoryModalComponent);
     component = fixture.componentInstance;
+    component.story = testData;
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-  // it('should call Story Service', () => {
-  //   service.getStoryById('123');
-  // });
+  it('should have a title', () => {
+    const title = fixture.debugElement.query(By.css('h3')).nativeElement;
+    expect(title.innerHTML).toBe('Full Story Details');
+  });
 
-  // it('should have a title', () => {
-  //   expect(component.story).toBeTruthy();
-  //   const title = fixture.debugElement.query(By.css('h3')).nativeElement;
-  //   expect(title.innerHTML).toBe('Full Story Details');
-  // });
+  it('should display the story', () => {
+    expect(component.story).toBe(testData);
+  });
+
+  it('should call Story Service on ngInit()', () => {
+    spyOn(component, 'getCurrentStory');
+    component.ngOnInit();
+    expect(component.getCurrentStory).toHaveBeenCalledTimes(1);
+  });
 
 });

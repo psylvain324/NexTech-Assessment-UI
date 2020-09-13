@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
   animations: []
 })
 export class StoriesComponent implements OnInit {
+  title = 'Hacker Noon Story Feed';
   filteredList = [];
   filterOptionsList: FilterOptions[] = [];
   dataSource = new MatTableDataSource<Story>();

@@ -12,11 +12,9 @@ export class StoryModalComponent implements OnInit {
   title = 'Full Story Details';
   story: Story;
   rowData: string;
-  public columnDefs;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, private service: StoryService) {
      this.rowData = data;
-     console.log('Row Data: ' + this.rowData);
    }
 
   ngOnInit(): void {
@@ -26,7 +24,6 @@ export class StoryModalComponent implements OnInit {
   getCurrentStory(): void {
     this.service.getStoryById(this.rowData).subscribe((data: any) => {
       this.story = data;
-      console.log(this.story);
     });
   }
 

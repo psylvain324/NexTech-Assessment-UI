@@ -23,8 +23,7 @@ mat-card img{
 }
 
 .avatar-image {
-  /*background-image: url('../../../assets//profile-pic.png');*/
-  background-image: url('../../../assets/hackernoon-logo.jpg');
+  background-image: url('../../../assets//profile-pic.png');
   background-size: cover;
 }
 
