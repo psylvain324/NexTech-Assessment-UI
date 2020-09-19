@@ -13,6 +13,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { StoryCardsComponent } from './components/story-cards/story-cards.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoryModalComponent } from './components/story-modal/story-modal.component';
+import { FilterPipe } from './components/story-cards/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { StoryModalComponent } from './components/story-modal/story-modal.compon
     StoriesComponent,
     NavMenuComponent,
     StoryCardsComponent,
-    StoryModalComponent
+    StoryModalComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +32,9 @@ import { StoryModalComponent } from './components/story-modal/story-modal.compon
     HttpClientModule,
     JwPaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

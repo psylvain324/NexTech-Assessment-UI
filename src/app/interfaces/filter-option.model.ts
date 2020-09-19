@@ -1,4 +1,4 @@
 export interface FilterOptions {
-   searchText: string;
-   fieldName: string;
- }
+  searchText: string;
+  fieldName: string;
+}

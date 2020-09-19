@@ -1,5 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  HttpClientTestingModule,
+} from '@angular/common/http/testing';
 import { HackernoonService } from './hacker-noon.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,7 +13,7 @@ describe('HackernoonService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(HackernoonService);
     httpMock = TestBed.inject(HttpTestingController);

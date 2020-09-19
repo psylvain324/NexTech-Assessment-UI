@@ -6,11 +6,11 @@ import { StoryCardsComponent } from './components/story-cards/story-cards.compon
 const routes: Routes = [
   { path: '', redirectTo: '/stories', pathMatch: 'full' },
   { path: 'stories', component: StoriesComponent },
-  { path: 'story-cards', component: StoryCardsComponent}
+  { path: 'story-cards', component: StoryCardsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

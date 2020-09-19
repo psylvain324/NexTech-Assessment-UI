@@ -6,7 +6,7 @@ import { StoryService } from '../../services/story-service/story.service';
 @Component({
   selector: 'app-story-modal',
   templateUrl: './story-modal.component.html',
-  styleUrls: ['./story-modal.component.css']
+  styleUrls: ['./story-modal.component.css'],
 })
 export class StoryModalComponent implements OnInit {
   title = 'Full Story Details';
@@ -14,8 +14,8 @@ export class StoryModalComponent implements OnInit {
   rowData: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, private service: StoryService) {
-     this.rowData = data;
-   }
+    this.rowData = data;
+  }
 
   ngOnInit(): void {
     this.getCurrentStory();
@@ -26,5 +26,4 @@ export class StoryModalComponent implements OnInit {
       this.story = data;
     });
   }
-
 }

@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
   selector: 'app-stories',
   templateUrl: './stories.component.html',
   styleUrls: ['./stories.component.css'],
-  animations: []
+  animations: [],
 })
 export class StoriesComponent implements OnInit {
   title = 'Hacker Noon Story Feed';
@@ -25,17 +25,12 @@ export class StoriesComponent implements OnInit {
   storiesRef: Story[] = [];
   isLoading = true;
 
-  displayedColumns: string[] = [
-    'by',
-    'title',
-    'url',
-    'time'
-  ];
+  displayedColumns: string[] = ['by', 'title', 'url', 'time'];
 
-  @ViewChild(MatSort, {static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private service: StoryService) { }
+  constructor(private service: StoryService) {}
 
   ngOnInit(): void {
     this.getStories();
@@ -51,9 +46,7 @@ export class StoriesComponent implements OnInit {
     this.service.getStories().subscribe((data: any) => {
       this.stories = data;
       this.storiesRef = this.stories;
-      this.dataSource = new MatTableDataSource<Story>(
-        this.stories
-      );
+      this.dataSource = new MatTableDataSource<Story>(this.stories);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.isLoading = false;
@@ -78,7 +71,7 @@ export class StoriesComponent implements OnInit {
     this.filteredList = this.stories;
     this.filterOptionsList.push({
       searchText: this.titleSearch.value,
-      fieldName: 'title'
+      fieldName: 'title',
     });
 
     this.filteredList = this.service.transformMultipleFilters(
@@ -87,9 +80,7 @@ export class StoriesComponent implements OnInit {
     );
 
     this.stories = this.filteredList;
-    this.dataSource = new MatTableDataSource<Story>(
-      this.stories
-    );
+    this.dataSource = new MatTableDataSource<Story>(this.stories);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.isLoading = false;
@@ -99,12 +90,9 @@ export class StoriesComponent implements OnInit {
     this.titleSearch.reset();
     this.wildCardSearch.reset();
     this.stories = this.storiesRef;
-    this.dataSource = new MatTableDataSource<Story>(
-      this.stories
-    );
+    this.dataSource = new MatTableDataSource<Story>(this.stories);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.isLoading = false;
   }
-
 }

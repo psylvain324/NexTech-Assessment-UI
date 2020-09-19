@@ -6,22 +6,22 @@ import { Story } from '../../interfaces/story.model';
 import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HackernoonService {
   apiUrl = environment.hackerNoonApi;
   testUrl = environment.testApiUrl;
-  public storyIdCache  = new Map();
+  public storyIdCache = new Map();
   public storiesCache = new Map();
   private storyIds = new BehaviorSubject<string[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   get StoryIds(): Observable<string[]> {
     return this.storyIds.asObservable();
   }
 
-  getTestStories(): Observable<any>  {
+  getTestStories(): Observable<any> {
     const apiUrl = this.testUrl + 'stories';
     const storiesFromCache = this.storiesCache.get(apiUrl);
     if (storiesFromCache) {
@@ -40,7 +40,7 @@ export class HackernoonService {
     );
   }
 
-  getNewestStoryIds(): Observable<any>  {
+  getNewestStoryIds(): Observable<any> {
     const apiUrl = this.apiUrl + 'newstories.json?print=pretty';
     const idsFromCache = this.storyIdCache.get(apiUrl);
     if (idsFromCache) {
@@ -59,7 +59,7 @@ export class HackernoonService {
     );
   }
 
-  getStoryById(id: string): Observable<any>  {
+  getStoryById(id: string): Observable<any> {
     const apiUrl = this.apiUrl + 'item/' + id + '.json?print=pretty';
     const storiesFromCache = this.storyIdCache.get(apiUrl);
     if (storiesFromCache) {
@@ -75,5 +75,4 @@ export class HackernoonService {
       })
     );
   }
-
 }

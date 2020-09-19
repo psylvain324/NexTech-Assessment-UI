@@ -9,10 +9,9 @@ describe('StoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavMenuComponent ],
-      imports: [ MaterialModule, BrowserAnimationsModule ]
-    })
-    .compileComponents();
+      declarations: [NavMenuComponent],
+      imports: [MaterialModule, BrowserAnimationsModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

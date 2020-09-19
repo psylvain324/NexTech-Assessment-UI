@@ -1,5 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  HttpClientTestingModule,
+} from '@angular/common/http/testing';
 import { StoryService } from './story.service';
 import { MaterialModule } from '../../shared/material.module';
 import { Story } from 'src/app/interfaces/story.model';
@@ -48,7 +51,7 @@ describe('StoryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, HttpClientTestingModule]
+      imports: [MaterialModule, HttpClientTestingModule],
     });
     service = TestBed.inject(StoryService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -64,9 +67,12 @@ describe('StoryService', () => {
   it('should filter by title', () => {
     filterOptionsList.push({
       searchText: 'NexTech',
-      fieldName: 'title'
+      fieldName: 'title',
     });
-    const result = service.transformMultipleFilters(testData, filterOptionsList);
+    const result = service.transformMultipleFilters(
+      testData,
+      filterOptionsList
+    );
     expect(result.length).toBe(1);
   });
 

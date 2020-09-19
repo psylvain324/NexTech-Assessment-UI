@@ -4,12 +4,13 @@ import { StoryService } from '../../services/story-service/story.service';
 import { ReplaySubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StoryModalComponent } from '../story-modal/story-modal.component';
-import { NgZone } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { createReducer, on } from '@ngrx/store';
 
 @Component({
   selector: 'app-story-cards',
   templateUrl: './story-cards.component.html',
-  styleUrls: ['./story-cards.component.css']
+  styleUrls: ['./story-cards.component.css'],
 })
 export class StoryCardsComponent implements OnInit {
   private subjectIdList = new ReplaySubject<string[]>();
@@ -18,13 +19,13 @@ export class StoryCardsComponent implements OnInit {
   stories: Story[] = [];
   pageOfItems: Story[] = [];
   isLoading = true;
+  titleSearch = new FormControl();
+  wildCardSearch = new FormControl();
 
-  constructor(private service: StoryService, private dialog: MatDialog, private ngZone: NgZone) {}
+  constructor(private service: StoryService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.ngZone.run(() => {
-      this.pageOfItems = this.stories;
-    });
+    this.pageOfItems = this.stories;
     this.getNewestStoryIds();
     this.getNewestStoryIdsList();
     this.getNewestStories();
@@ -62,12 +63,9 @@ export class StoryCardsComponent implements OnInit {
       next: (id) => {
         storyId = id.toString();
         idList.push(storyId);
-        console.log('StoryId being passed: ' + storyId);
-      }
+      },
     });
     this.manualDelay(1000).then(() => {
-      console.log('ID Length: ' + idList.length);
-
       idList.forEach((id) => {
         this.service.getStoryById(id).subscribe((data: any) => {
           const story: Story = data;
@@ -86,7 +84,14 @@ export class StoryCardsComponent implements OnInit {
   }
 
   async manualDelay(ms: number): Promise<void> {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('Thread asleep!'));
+    await new Promise((resolve) => setTimeout(() => resolve(), ms)).then(() =>
+      console.log('Thread asleep!')
+    );
+  }
+
+  applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
   }
 
   openDialog(id: string): void {
@@ -95,5 +100,4 @@ export class StoryCardsComponent implements OnInit {
     console.log(dialogConfig.data);
     this.dialog.open(StoryModalComponent, dialogConfig);
   }
-
 }

@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  HttpClientTestingModule,
+} from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { StoriesComponent } from './stories.component';
 import { MaterialModule } from '../../shared/material.module';
@@ -18,10 +21,13 @@ describe('StoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StoriesComponent ],
-      imports: [ MaterialModule, HttpClientTestingModule, BrowserAnimationsModule ]
-    })
-    .compileComponents();
+      declarations: [StoriesComponent],
+      imports: [
+        MaterialModule,
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+      ],
+    }).compileComponents();
     httpMock = TestBed.inject(HttpTestingController);
     httpClient = TestBed.inject(HttpClient);
   }));
@@ -48,7 +54,9 @@ describe('StoriesComponent', () => {
   });
 
   it('should clear input texts when clear button clicked', async () => {
-    const clearButton = await loader.getHarness(MatButtonHarness.with({selector: '#clear'}));
+    const clearButton = await loader.getHarness(
+      MatButtonHarness.with({ selector: '#clear' })
+    );
     spyOn(clearButton, 'click');
     spyOn(component, 'clear');
     await clearButton.click();

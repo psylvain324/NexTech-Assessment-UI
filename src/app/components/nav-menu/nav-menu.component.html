@@ -1,23 +1,22 @@
-
-<div class="topHeader">
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side">
-      Sidenav content
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <span>
-        <img mat-button
-        class="logo"
-        src="../../../assets/nextech-logo.svg"
-        alt="TV Logo" />
-      <div class="menu-item">
-        <button mat-button [matMenuTriggerFor]="aboveMenu">Story Feed</button>
-        <mat-menu #aboveMenu="matMenu" yPosition="above">
-          <button mat-menu-item routerLink="stories" routerLinkActive="active">As Table</button>
-          <button mat-menu-item routerLink="story-cards" routerLinkActive="active">As Cards</button>
-        </mat-menu>
+<span class="header-span">
+  <img
+    mat-button
+    class="logo"
+    src="../../../assets/nextech-logo.svg"
+    alt="NexTech Logo"
+  />
+  <div class="menu-item">
+    <span class="mat-menu-buttons">
+      <div class="button-shadow">
+        <button mat-button routerLink="stories" routerLinkActive="active">
+          Story Table Feed
+        </button>
       </div>
-      </span>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+      <div class="button-shadow">
+        <button mat-button routerLink="story-cards" routerLinkActive="active">
+          Story Card Feed
+        </button>
+      </div>
+    </span>
+  </div>
+</span>

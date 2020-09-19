@@ -1,4 +1,3 @@
-
 .mat-header-row {
   background-color: #4db693;
   background: repeating-linear-gradient(#4db693, #4abbc3);
@@ -32,8 +31,8 @@
   color: black !important;
 }
 
-th.mat-sort-header-sorted{
-  color:black;
+th.mat-sort-header-sorted {
+  color: black;
 }
 
 .mat-table {
@@ -87,22 +86,22 @@ th.mat-sort-header-sorted{
   color: lightgreen !important;
 }
 
-.mat-column-by{
+.mat-column-by {
   max-width: 250px !important;
   min-width: 250px !important;
 }
 
-.mat-column-title{
+.mat-column-title {
   max-width: 500px !important;
   min-width: 500px !important;
 }
 
-.mat-column-url{
+.mat-column-url {
   max-width: 500px !important;
   min-width: 500px !important;
 }
 
-.mat-column-time{
+.mat-column-time {
   max-width: 250px !important;
   min-width: 250px !important;
 }

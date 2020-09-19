@@ -14,27 +14,26 @@ describe('StoryModalComponent', () => {
   let service: StoryService;
 
   const testData: Story = {
-      by: 'Phil',
-      descendants: 1,
-      kids: [123],
-      score: 100,
-      time: '0171990',
-      title: 'Tech Assessment',
-      type: 'Test',
-      id: '123',
-      url: 'www.test1.com',
+    by: 'Phil',
+    descendants: 1,
+    kids: [123],
+    score: 100,
+    time: '0171990',
+    title: 'Tech Assessment',
+    type: 'Test',
+    id: '123',
+    url: 'www.test1.com',
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StoryModalComponent ],
+      declarations: [StoryModalComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: MatDialogRef, useValue: {} },
       ],
-      imports: [ HttpClientTestingModule ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
     httpClient = TestBed.inject(HttpClient);
     service = TestBed.inject(StoryService);
   }));
@@ -64,5 +63,4 @@ describe('StoryModalComponent', () => {
     component.ngOnInit();
     expect(component.getCurrentStory).toHaveBeenCalledTimes(1);
   });
-
 });
