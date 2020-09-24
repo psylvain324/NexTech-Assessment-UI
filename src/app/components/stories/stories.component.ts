@@ -53,20 +53,6 @@ export class StoriesComponent implements OnInit {
     });
   }
 
-  getNewestStoryIds(): void {
-    this.service.getStoryIds().subscribe((data: string[]) => {
-      this.storyIds = data;
-    });
-  }
-
-  getNewestStories(storyIds: string[]): void {
-    storyIds.forEach((id) => {
-      this.service.getStoryById(id).subscribe((data: any) => {
-        this.stories = data;
-      });
-    });
-  }
-
   search(): void {
     this.filteredList = this.stories;
     this.filterOptionsList.push({

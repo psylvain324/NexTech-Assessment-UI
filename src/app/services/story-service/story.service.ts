@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Story } from '../../interfaces/story.model';
-import { throwError, BehaviorSubject, Observable, of } from 'rxjs';
+import { throwError, BehaviorSubject, Observable, of , forkJoin} from 'rxjs';
 import { FilterOptions } from '../../interfaces/filter-option.model';
+import { TreeNode } from 'primeng/api';
+import { StoryViewModel } from 'src/app/interfaces/story-comments.model';
+import { tap, concatMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class StoryService {
-  readonly batchSize: number = 1;
   baseApi = environment.apiUrl;
   public storiesCache = new Map();
   public idsCache = new Map();
@@ -59,7 +61,7 @@ export class StoryService {
   }
 
   getStoryById(id: string): Observable<Story> {
-    const apiUrl = this.baseApi + 'story/' + id;
+    const apiUrl = this.baseApi + 'Story/' + id;
     return this.http.get(apiUrl).pipe(
       map((data: Story) => {
         return data;
@@ -70,25 +72,54 @@ export class StoryService {
     );
   }
 
-  getStoriesBySizeAndPosition(
-    pageNumber: number,
-    pageSize: number
-  ): Observable<any> {
-    const apiUrl = this.baseApi + pageNumber + '/' + pageSize;
-    const storiesFromCache = this.storiesCache.get(apiUrl);
-    if (storiesFromCache) {
-      console.log('Stories retrieved from Cache!');
-      return of(storiesFromCache);
-    }
+  getCommentsByStoryId(id: string): Observable<Comment> {
+    const apiUrl = this.baseApi + 'CommentsById' + id;
     return this.http.get(apiUrl).pipe(
-      map((data: string[]) => {
-        this.storiesCache.set(apiUrl, data);
+      map((data: Comment) => {
         return data;
       }),
       catchError(() => {
         return throwError('There was a problem with the request');
       })
     );
+  }
+
+  // TODO - This needs work, haven't figured out yet.
+  getStoryCommentViewModel(id: string): void {
+    const apiUrl = this.baseApi + 'Story/' + id;
+    this.http.get(apiUrl).pipe(
+      map((data: Story) => {
+        const kidsIds = of(data.kids);
+        const getComments = (kidId: string) => of(this.baseApi + 'Comment/' + kidId);
+        return kidsIds.pipe(
+          tap((commentIds) => (commentIds = commentIds)),
+          concatMap((commentIds) => {
+            const apiRequest: Observable<string>[] = commentIds.map(commentId =>
+              getComments(commentId));
+            return forkJoin([...apiRequest]);
+          })
+        );
+      }),
+      catchError(() => {
+        return throwError('There was a problem with the request');
+      })
+    );
+  }
+
+  async getNewStoriesTree(): Promise<TreeNode[]> {
+    const apiUrl = this.baseApi + 'NewStories';
+    const res = await this.http
+      .get<any>(apiUrl)
+      .toPromise();
+    return res.data as TreeNode[];
+  }
+
+  async getCommentsByIdLazy(id: string): Promise<TreeNode[]> {
+    const apiUrl = this.baseApi + 'StoryComments' + id;
+    const res = await this.http
+      .get<any>(apiUrl)
+      .toPromise();
+    return res.data as TreeNode[];
   }
 
   transformMultipleFilters(

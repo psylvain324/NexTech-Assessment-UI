@@ -1,0 +1,61 @@
+<p-treeTable
+  [value]="stories"
+  [columns]="cols"
+  [paginator]="true"
+  [rows]="10"
+  [lazy]="true"
+  (onLazyLoad)="loadNodes($event)"
+  [totalRecords]="1000"
+  [loading]="loading"
+  (onNodeExpand)="onNodeExpand($event)"
+>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-rowNode
+    let-rowData="rowData"
+    let-columns="columns"
+  >
+    <tr>
+      <td *ngFor="let col of columns; let i = index">
+        <p-treeTableToggler
+          [rowNode]="rowNode"
+          *ngIf="i == 0"
+        ></p-treeTableToggler>
+        {{ rowData[col.field] }}
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+
+<!--TODO - Was trying to do this as a nested, will do after simpler Viewmodel version -->
+<!-- <p-treeTable [value]="stories" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true"
+    (onLazyLoad)="loadNodes($event)" [totalRecords]="500" [loading]="loading" (onNodeExpand)="onNodeExpand($event)">
+    <ng-template pTemplate="header" let-columns>
+        <tr *ngFor="let col of columns">
+            <td *ngIf="col.type !== 'child'">
+              {{col.header}}
+            </td>
+        </tr>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+          <tr *ngFor="let col of columns; let i = index;">
+              <td *ngIf="col.type !== 'child'">
+                  <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    {{rowData[col.field]}}
+              </td>
+              <th *ngIf="col.type !== 'parent' && i === 2">
+                {{col.header}}
+              </th>
+              <th *ngIf="col.type !== 'parent'">
+                {{rowData[col.field]}}
+              </th>
+          </tr>
+      </ng-template>
+    </ng-template>
+</p-treeTable> -->

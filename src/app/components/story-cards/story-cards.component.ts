@@ -5,7 +5,6 @@ import { ReplaySubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StoryModalComponent } from '../story-modal/story-modal.component';
 import { FormControl } from '@angular/forms';
-import { createReducer, on } from '@ngrx/store';
 
 @Component({
   selector: 'app-story-cards',
@@ -13,6 +12,7 @@ import { createReducer, on } from '@ngrx/store';
   styleUrls: ['./story-cards.component.css'],
 })
 export class StoryCardsComponent implements OnInit {
+  // Could have used Behavior Subject here
   private subjectIdList = new ReplaySubject<string[]>();
   private subjectStoryList = new ReplaySubject<Story[]>();
   storyIds: string[] = [];
@@ -76,8 +76,7 @@ export class StoryCardsComponent implements OnInit {
         });
       });
     });
-
-    this.manualDelay(2500).then(() => {
+    this.manualDelay(3000).then(() => {
       this.stories = storyList;
       this.isLoading = false;
     });
@@ -97,7 +96,6 @@ export class StoryCardsComponent implements OnInit {
   openDialog(id: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = id;
-    console.log(dialogConfig.data);
     this.dialog.open(StoryModalComponent, dialogConfig);
   }
 }
