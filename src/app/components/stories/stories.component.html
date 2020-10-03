@@ -3,7 +3,7 @@
     {{ title }}
   </h3>
 
-  <mat-form-field style="width: 350px">
+  <mat-form-field style="width: 300px; margin-right:1%">
     <input
       matInput
       (keyup)="applyFilter($event.target.value)"
@@ -12,7 +12,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field style="padding-left: 2% !important; width: 350px">
+  <mat-form-field style="width: 300px">
     <input matInput placeholder="Search Stories" [formControl]="titleSearch" />
   </mat-form-field>
 

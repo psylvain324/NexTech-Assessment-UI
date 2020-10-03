@@ -6,14 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwPaginationModule } from 'jw-angular-pagination';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import {TreeTableModule} from 'primeng/treetable';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {InputTextModule} from 'primeng/inputtext';
-import {ToastModule} from 'primeng/toast';
-import {ContextMenuModule} from 'primeng/contextmenu';
+import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 import { MaterialModule } from './shared/material.module';
 import { StoriesComponent } from './components/stories/stories.component';
@@ -52,6 +53,7 @@ import { CommentsComponent } from './components/comments/comments.component';
     MultiSelectModule,
     InputTextModule,
     ContextMenuModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

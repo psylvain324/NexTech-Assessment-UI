@@ -1,32 +1,141 @@
-<span class="header-span">
+<mat-toolbar class="header-span">
+  <div fxShow="true" fxHide.lt-md="true">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <img
     mat-button
     class="logo"
     src="../../../assets/nextech-logo.svg"
     alt="NexTech Logo"
   />
-  <div class="menu-item">
+  <!-- <button
+    mat-button
+    class="button-shadow"
+    routerLink="stories"
+    routerLinkActive="active"
+    fxHide="false"
+  >
+    Story Table
+  </button>
+  <button
+    class="button-shadow"
+    mat-button
+    routerLink="story-cards"
+    routerLinkActive="active"
+    fxHide="false"
+  >
+    Story Cards
+  </button>
+  <button
+    class="button-shadow"
+    mat-button
+    routerLink="comments"
+    routerLinkActive="active"
+    fxHide="false"
+  >
+    Comments Table
+  </button>
+  <button
+    class="button-shadow"
+    mat-button
+    routerLink="story-comments-tree"
+    routerLinkActive="active"
+    fxHide="false"
+  >
+    Comments Tree
+  </button> -->
+</mat-toolbar>
+<mat-sidenav-container >
+  <mat-sidenav
+    color="primary"
+    #sidenav
+    fxLayout="column"
+    mode="over"
+    opened="false"
+    fxHide.gt-sm="true"
+  >
+    <div fxLayout="column">
+      <span class="mat-menu-buttons">
+        <div class="button-shadow">
+          <button
+            mat-button
+            routerLink="stories"
+            routerLinkActive="active"
+            fxHide="false"
+            fxHide.gt-sm
+          >
+            Story Table
+          </button>
+        </div>
+        <div class="button-shadow">
+          <button
+            mat-button
+            routerLink="story-cards"
+            routerLinkActive="active"
+            fxHide="false"
+            fxHide.gt-sm
+          >
+            Story Cards
+          </button>
+        </div>
+        <div class="button-shadow">
+          <button
+            mat-button
+            routerLink="comments"
+            routerLinkActive="active"
+            fxHide="false"
+            fxHide.gt-sm
+          >
+            Comments Table
+          </button>
+        </div>
+        <div class="button-shadow">
+          <button
+            mat-button
+            routerLink="story-comments-tree"
+            routerLinkActive="active"
+            fxHide="false"
+            fxHide.gt-sm
+          >
+            Comments Tree
+          </button>
+        </div>
+      </span>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<!-- <span class="header-span">
+  <img
+    mat-button
+    class="logo"
+    src="../../../assets/nextech-logo.svg"
+    alt="NexTech Logo"
+  />
+  <div class="menu-item" x-position="before">
     <span class="mat-menu-buttons">
       <div class="button-shadow">
-        <button mat-button routerLink="stories" routerLinkActive="active">
+        <button mat-button routerLink="stories" routerLinkActive="active" fxHide="false" fxHide.gt-sm>
           Story Table
         </button>
       </div>
       <div class="button-shadow">
-        <button mat-button routerLink="story-cards" routerLinkActive="active">
+        <button mat-button routerLink="story-cards" routerLinkActive="active" fxHide="false" fxHide.gt-sm>
           Story Cards
         </button>
       </div>
-      <!-- <div class="button-shadow">
-        <button mat-button routerLink="comments" routerLinkActive="active">
+      <div class="button-shadow">
+        <button mat-button routerLink="comments" routerLinkActive="active" fxHide="false" fxHide.gt-sm>
           Comments Table
         </button>
-      </div> -->
-      <!-- <div class="button-shadow">
-        <button mat-button routerLink="story-comments-tree" routerLinkActive="active">
+      </div>
+      <div class="button-shadow">
+        <button mat-button routerLink="story-comments-tree" routerLinkActive="active" fxHide="false" fxHide.gt-sm>
           Comments Tree
         </button>
-      </div> -->
+      </div>
     </span>
   </div>
-</span>
+</span> -->
